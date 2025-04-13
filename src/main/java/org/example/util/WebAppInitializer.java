@@ -7,16 +7,16 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null; // Можно вернуть `null`, если нет глобальной конфигурации Spring (например, базы данных)
+        return null;
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{MvcConfiguration.class}; // Указываем класс конфигурации Spring MVC
+        return new Class[]{MvcConfiguration.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"}; // Все запросы идут через DispatcherServlet
+        return new String[]{"/"};
     }
 }

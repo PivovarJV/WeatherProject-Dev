@@ -3,8 +3,8 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -21,4 +21,9 @@ public class User {
     @NonNull
     @JoinColumn(nullable = false)
     private String password;
+
+    public User(@NonNull String login, @NonNull String password) {
+        this.login = login;
+        this.password = password;
+    }
 }

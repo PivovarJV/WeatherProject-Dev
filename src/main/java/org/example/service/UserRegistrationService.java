@@ -1,45 +1,41 @@
 package org.example.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.dao.UserDAO;
 import org.example.exception.LoginAlreadyTakenException;
 import org.example.exception.PasswordMismatchException;
 import org.example.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static org.example.util.PasswordService.hashPassword;
+
+@RequiredArgsConstructor
 @Service
 public class UserRegistrationService {
 
     private final UserDAO userDAO;
-    private final PasswordService passwordService;
-
-    @Autowired
-    public UserRegistrationService(UserDAO userDAO, PasswordService passwordService) {
-        this.userDAO = userDAO;
-        this.passwordService = passwordService;
-    }
 
     @Transactional
     public void registerUser(String login, String password, String repeatPassword) {
-        validateLogin(login);
-        validatePassword(password, repeatPassword);
+        checkLoginValidity(login);
+        checkPasswordValidity(password, repeatPassword);
         saveUser(login,password);
     }
 
 
     private void saveUser(String login, String password) {
-        User user = new User(login, passwordService.hashPassword(password));
+        User user = new User(login, hashPassword(password));
         userDAO.saveUser(user);
     }
 
-    private void validatePassword(String password, String repeatPassword) {
+    private void checkPasswordValidity(String password, String repeatPassword) {
         if (!password.equals(repeatPassword)) {
             throw new PasswordMismatchException("Пароли не совпадают");
         }
     }
 
-    private void validateLogin(String login) {
+    private void checkLoginValidity(String login) {
         if (userDAO.isUserExist(login)) {
             throw new LoginAlreadyTakenException("Логин занят");
         }

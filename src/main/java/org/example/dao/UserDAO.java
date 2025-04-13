@@ -3,9 +3,13 @@ package org.example.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
-import org.example.exception.LoginNotFoundException;
+import org.example.exception.NotFoundException;
+import org.example.model.Session;
 import org.example.model.User;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDAO {
@@ -18,9 +22,9 @@ public class UserDAO {
     }
 
     public boolean isUserExist(String login) {
-        String jpql = "SELECT COUNT(u) FROM User u WHERE u.login = :login";
+        String query = "SELECT COUNT(u) FROM User u WHERE u.login = :login";
         try {
-            Long count = entityManager.createQuery(jpql, Long.class)
+            long count = entityManager.createQuery(query, Long.class)
                     .setParameter("login", login)
                     .getSingleResult();
             return count > 0;
@@ -30,17 +34,36 @@ public class UserDAO {
     }
 
     public String getHashPasswordByLogin(String login) {
-        String jpql = "SELECT u.password FROM User u WHERE u.login = :login";
+        String query = "SELECT u.password FROM User u WHERE u.login = :login";
         try {
-            return entityManager.createQuery(jpql, String.class)
+            return entityManager.createQuery(query, String.class)
                     .setParameter("login", login)
                     .getSingleResult();
         } catch (NoResultException e) {
-            throw new LoginNotFoundException("Такого логина не существует");
+            throw new NotFoundException("Такого логина не существует");
         }
     }
 
     public User getUserById(int id) {
-        return entityManager.find(User.class, id);
+        return Optional.ofNullable(entityManager.find(User.class, id))
+                .orElseThrow(() -> new NotFoundException("Пользователя с " + id + " нет"));
+    }
+
+    public User getUserByLogin(String login) {
+        String query = "SELECT u FROM User u WHERE u.login = :login";
+        try {
+            return entityManager.createQuery(query, User.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new NotFoundException("Такого пользователя нет в базе данных");
+        }
+    }
+
+    public List<Session> getListSessionByUser(User user) {
+        String query = "FROM Session s WHERE s.user.id = :userId";
+        return entityManager.createQuery(query, Session.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
     }
 }

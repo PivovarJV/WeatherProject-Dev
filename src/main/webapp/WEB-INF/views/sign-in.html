@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Weather Viewer – Sign In</title>
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <h2 class="text-center mb-5">Sign In</h2>
+    <h2 class="text-center mb-5">Вход</h2>
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
@@ -30,18 +30,18 @@
 
             <form action="#" th:action="@{/login}" method="post" class="mt-4">
                 <div class="mb-3">
-                    <label for="login" class="form-label">Username</label>
+                    <label for="login" class="form-label">Логин</label>
                     <input type="text" class="form-control" id="login" th:field="*{user.login}" required/>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Пароль</label>
                     <input type="password" class="form-control" id="password" th:field="*{user.password}" required/>
                 </div>
 
                 <input type="hidden" name="redirect_to" value="http://localhost/"/>
 
-                <button type="submit" class="btn btn-primary w-100 mt-3">Sign In</button>
-                <p class="mt-2 text-center">Don't have an account? <a href="/registration">Sign up here</a></p>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Вход</button>
+                <p class="mt-2 text-center">Нет аккаунта?<a href="/registration">Зарегестрируйся здесь</a></p>
             </form>
         </div>
     </div>
