@@ -41,4 +41,10 @@ public class GlobalExceptionHandler {
     public String handleUnauthenticatedException() {
         return "redirect:/login";
     }
+
+    @ExceptionHandler(ApiExceprion.class)
+    public String handeApiException(ApiExceprion e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "error";
+    }
 }
