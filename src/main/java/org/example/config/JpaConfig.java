@@ -22,8 +22,8 @@ public class JpaConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/database");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("admin");
+        dataSource.setUsername("NAME");
+        dataSource.setPassword("PASSWORD");
         return dataSource;
     }
 
