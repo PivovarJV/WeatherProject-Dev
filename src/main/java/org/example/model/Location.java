@@ -1,11 +1,11 @@
 package org.example.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@AllArgsConstructor
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "locations")
 public class Location {
@@ -25,4 +25,13 @@ public class Location {
 
     @Column(nullable = false)
     private double longitude;
+
+    public Location(String name, User user, double latitude, double longitude) {
+        this.name = name;
+        this.user = user;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }
+
+

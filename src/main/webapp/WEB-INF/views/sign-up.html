@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Weather Viewer – Sign Up</title>
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <h2 class="text-center mb-5">Sign Up</h2>
+    <h2 class="text-center mb-5">Регистрация</h2>
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
@@ -30,22 +30,26 @@
 
             <form action="#" th:action="@{/registration}" method="post" class="mt-4">
                 <div class="mb-3">
-                    <label for="login" class="form-label">Username</label>
+                    <label for="login" class="form-label">Логин</label>
                     <input type="text" class="form-control" id="login" name="username" th:field="*{userDTO.login}" required/>
+                    <div th:if="${#fields.hasErrors('userDTO.login')}" th:errors="*{userDTO.login}" class="text-danger"></div>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Пароль</label>
                     <input type="password" class="form-control" id="password" th:field="*{userDTO.password}" required/>
+                    <div th:if="${#fields.hasErrors('userDTO.password')}" th:errors="*{userDTO.password}" class="text-danger"></div>
+
                 </div>
                 <div class="mb-3">
-                    <label for="repeat-password" class="form-label">Repeat password</label>
-                    <input type="password" class="form-control" id="repeat-password" th:field="*{userDTO.repeatPassword}" required/>
+                    <label for="repeatPassword" class="form-label">Повторите пароль</label>
+                    <input type="password" class="form-control" id="repeatPassword" th:field="*{userDTO.repeatPassword}" required/>
+                    <div th:if="${#fields.hasErrors('userDTO.repeatPassword')}" th:errors="*{userDTO.repeatPassword}" class="text-danger"></div>
                 </div>
 
                 <input type="hidden" name="redirect_to" value="http://localhost/"/>
 
-                <button type="submit" class="btn btn-primary w-100 mt-3">Sign Up</button>
-                <p class="mt-2 text-center">Already have an account? <a href="/login">Sign in here</a></p>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Регистрация</button>
+                <p class="mt-2 text-center">Уже есть аккаунт? <a href="/login">Вход здесь</a></p>
             </form>
         </div>
     </div>

@@ -5,7 +5,6 @@ import org.example.model.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,8 +23,8 @@ public class GlobalExceptionHandler {
         return "sign-up";
     }
 
-    @ExceptionHandler(LoginNotFoundException.class)
-    public String handleLoginNotFoundException(LoginNotFoundException e, Model model) {
+    @ExceptionHandler(NotFoundException.class)
+    public String handleLoginNotFoundException(NotFoundException e, Model model) {
         model.addAttribute("loginNotFoundException", e.getMessage());
         model.addAttribute("user", new User());
         return "sign-in";
@@ -36,5 +35,16 @@ public class GlobalExceptionHandler {
         model.addAttribute("invalidPasswordException", e.getMessage());
         model.addAttribute("user", new User());
         return "sign-in";
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public String handleUnauthenticatedException() {
+        return "redirect:/login";
+    }
+
+    @ExceptionHandler(ApiExceprion.class)
+    public String handeApiException(ApiExceprion e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "error";
     }
 }

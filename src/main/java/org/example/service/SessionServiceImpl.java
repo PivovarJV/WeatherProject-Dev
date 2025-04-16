@@ -1,26 +1,24 @@
 package org.example.service;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.dao.SessionDAO;
 import org.example.dao.UserDAO;
 import org.example.model.Session;
 import org.example.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class SessionServiceImpl implements SessionService{
 
     private final SessionDAO sessionDAO;
     private final UserDAO userDAO;
 
-    @Autowired
-    public SessionServiceImpl(SessionDAO sessionDAO, UserDAO userDAO) {
-        this.sessionDAO = sessionDAO;
-        this.userDAO = userDAO;
-    }
-
+    @Transactional
     @Override
     public Session createSession(User user) {
         Session session = new Session(user);
@@ -30,9 +28,11 @@ public class SessionServiceImpl implements SessionService{
 
     @Override
     public boolean isValidSession(UUID sessionId) {
-        return false;
+        Session session = sessionDAO.getSessionByUUID(sessionId);
+        return session.getExpiresAt().isAfter(LocalDateTime.now());
     }
 
+    @Transactional
     @Override
     public void deleteSession(UUID sessionId) {
         sessionDAO.deleteSession(sessionId);

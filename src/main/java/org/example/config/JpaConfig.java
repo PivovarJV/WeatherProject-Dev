@@ -31,13 +31,13 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan("org.example.model"); // Укажи пакет, где лежат твои @Entity
+        factoryBean.setPackagesToScan("org.example.model");
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update"); // Можно заменить на "validate"
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update");
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        jpaProperties.setProperty("hibernate.show_sql", "true"); // Вывод SQL в консоль
+        jpaProperties.setProperty("hibernate.show_sql", "true");
         factoryBean.setJpaProperties(jpaProperties);
 
         return factoryBean;

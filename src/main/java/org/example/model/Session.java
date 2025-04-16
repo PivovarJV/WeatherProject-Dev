@@ -1,12 +1,15 @@
 package org.example.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "sessions")
 public class Session {

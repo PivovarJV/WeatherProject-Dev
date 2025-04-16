@@ -19,11 +19,11 @@ public class MvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("/WEB-INF/static/");
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/static/images/");
     }
 
-    @Bean
+        @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setPrefix("/WEB-INF/views/");
