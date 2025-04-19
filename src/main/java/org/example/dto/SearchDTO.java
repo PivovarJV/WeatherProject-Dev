@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class SearchDTO {
     @NotBlank(message = "Поле не может быть пустым")
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я-]+$", message = "Должно содержать только латинские, русские буквы и дефис.")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я\\s-]+$", message = "Должно содержать только латинские, русские буквы и дефис.")
     private String city;
 }
