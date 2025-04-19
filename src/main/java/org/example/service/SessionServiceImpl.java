@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.dao.SessionDAO;
 import org.example.dao.UserDAO;
+import org.example.exception.UnauthenticatedException;
 import org.example.model.Session;
 import org.example.model.User;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class SessionServiceImpl implements SessionService{
 
     @Override
     public User getUserBySession(UUID sessionId) {
-        return userDAO.getUserById(sessionDAO.getSessionByUUID(sessionId).getUser().getId());
+        Session session = sessionDAO.getSessionByUUID(sessionId);
+        if (session == null) {
+            throw new UnauthenticatedException();
+        }
+        return userDAO.getUserById(session.getUser().getId());
     }
 }

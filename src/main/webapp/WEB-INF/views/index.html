@@ -26,7 +26,7 @@
 <section id="page-content">
     <div class="container mt-4">
         <div class="d-flex my-4">
-            <form action="/search-results" th:object="${searchDTO}" method="post" class="d-flex my-4 w-100">
+            <form action="/search-results" th:object="${searchDTO}" method="get" class="d-flex my-4 w-100">
                 <div class="input-group flex-grow-1 me-3">
                     <input class="form-control" type="text" th:field="*{city}" placeholder="Введите город" required>
 

@@ -21,7 +21,7 @@ public class OpenWeatherAPIService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             return restTemplate.getForObject("https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+
-                            lon+"&appid=17c654c03ad05328fd336454ee6d644&units=metric"
+                            lon+"&appid=717c654c03ad05328fd336454ee6d644&units=metric"
                     , WeatherDTO.class);
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             handleHttpError(e);
@@ -33,7 +33,7 @@ public class OpenWeatherAPIService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<GeoDTO>> response= restTemplate.exchange("http://api.openweathermap.org/geo/1.0/direct?q="
-                            + city + "&limit=5&appid=17c654c03ad05328fd336454ee6d644",
+                            + city + "&limit=5&appid=717c654c03ad05328fd336454ee6d644",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<GeoDTO>>() {});
